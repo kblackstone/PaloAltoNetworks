@@ -1,0 +1,87 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "value": "eastus"
+        },
+        "storageAccountName": {
+            "value": "blackstonerg4storage"
+        },
+        "storageAccountType": {
+            "value": "Standard_LRS"
+        },
+        "storageAccountNewOrExisting": {
+            "value": "new"
+        },
+        "storageAccountExistingRG": {
+            "value": "blackstone-rg4"
+        },
+        "publicIPAddressName": {
+            "value": "kbrg4fwpip"
+        },
+        "PublicIPNewOrExisting": {
+            "value": "new"
+        },
+        "PublicIPRGName": {
+            "value": "blackstone-rg4"
+        },
+        "vmName": {
+            "value": "kbvmfwrg4"
+        },
+        "adminUsername": {
+            "value": "fwadmin"
+        },
+        "adminPassword": {
+            "value": null
+        },
+        "authenticationType": {
+            "value": "password"
+        },
+        "vmSize": {
+            "value": "Standard_D3"
+        },
+        "srcIPInboundNSG": {
+            "value": "0.0.0.0/0"
+        },
+        "virtualNetworkName": {
+            "value": "fwVNET-rg4"
+        },
+        "virtualNetworkExistingRGName": {
+            "value": "blackstone-rg4"
+        },
+        "virtualNetworkAddressPrefix": {
+            "value": "10.2.0.0/16"
+        },
+        "vnetNewOrExisting": {
+            "value": "new"
+        },
+        "subnet0Name": {
+            "value": "Mgmt"
+        },
+        "subnet1Name": {
+            "value": "Untrust"
+        },
+        "subnet2Name": {
+            "value": "Trust"
+        },
+        "subnet0Prefix": {
+            "value": "10.2.0.0/24"
+        },
+        "subnet1Prefix": {
+            "value": "10.2.1.0/24"
+        },
+        "subnet2Prefix": {
+            "value": "10.2.2.0/24"
+        },
+        "subnet0StartAddress": {
+            "value": "10.2.0.4"
+        },
+        "subnet1StartAddress": {
+            "value": "10.2.1.4"
+        },
+        "subnet2StartAddress": {
+            "value": "10.2.2.4"
+        }
+    }
+}
