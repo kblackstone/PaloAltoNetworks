@@ -3,85 +3,197 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "location": {
-            "value": "eastus"
+            "type": "string",
+            "defaultValue": "East US",
+            "metadata": {
+                "description": "region of resources"
+            }
         },
-        "storageAccountName": {
-            "value": "blackstonerg4storage"
+        "newStorageAccount": {
+            "type": "string",
+		"allowedValues": [
+                "Standard_LRS",
+                "Standard_GRS",
+                "Standard_RAGRS",
+                "Premium_LRS"
+                  ],
+		"metadata": {
+                "description": "Globally unique lowercase name of your storage account"
+            }
         },
         "storageAccountType": {
-            "value": "Standard_LRS"
+            "type": "string",
+	        "metadata": {
+		    "description": "The type of the Storage Account created"
+	    },
+	        "defaultValue":"Standard_LRS"
+	    },
+        "storageAccountNewOrExisting" : {
+            "type": "string",
+            "defaultValue" : "existing",
+            "allowedValues" : [
+                "new",
+                "existing"
+            ],
+            "metadata": {
+                "Description": "Indicates whether the Storage Account is new or existing"
+            }
         },
-        "storageAccountNewOrExisting": {
-            "value": "new"
+        "existingStorageAccountRG": {
+            "type": "string",
+            "defaultValue" : "",
+            "metadata": {
+               "description": "Storage Resource Group of the Existing VM."
+            }
         },
-        "storageAccountExistingRG": {
-            "value": "blackstone-rg4"
-        },
-        "publicIPAddressName": {
-            "value": "kbrg4fwpip"
-        },
-        "PublicIPNewOrExisting": {
-            "value": "new"
-        },
-        "PublicIPRGName": {
-            "value": "blackstone-rg4"
+        "dnsNameForPublicIP": {
+            "type": "string",
+            "metadata": {
+                "description": "Globally unique DNS name to access management interface of VM-Series firewall"
+            }
         },
         "vmName": {
-            "value": "kbvmfwrg4"
+            "type": "string",
+            "metadata": {
+                "description": "Name of VM-Series VM in the Azure portal"
+            }
         },
-        "adminUsername": {
-            "value": "fwadmin"
+        "adminUserName": {
+            "type": "string",
+            "defaultValue": "fwadmin",
+	    "metadata": {
+                "description": "Username for VM-Series administrator"
+            }
         },
         "adminPassword": {
-            "value": null
+            "type": "securestring",
+	    "defaultValue": "<YOUR PASSWORD",
+            "metadata": {
+                "description": "Password for VM-Series administrator"
+            }
         },
         "authenticationType": {
-            "value": "password"
+            "type": "string",
+            "metadata": {
+                "descritpion": "Type of authentication "
+            },
+            "allowedValues": [
+                "sshPublicKey",
+                "password"
+            ],
+            "defaultValue": "password"
+        },
+        "sshKey": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "SSH rsa public key file as a string."
+            }
         },
         "vmSize": {
-            "value": "Standard_D3"
+            "type": "string",
+            "defaultValue": "Standard_D3",
+            "allowedValues": [
+                "Standard_D3",
+                "Standard_D4",
+		        "Standard_DS3_v2",
+		        "Standard_DS4_v2"
+	    ],
+            "metadata": {
+                "description": "Azure VM size for VM-Series"
+            }
         },
         "srcIPInboundNSG": {
-            "value": "0.0.0.0/0"
+            "type": "string",
+            "defaultValue": "0.0.0.0/0",
+            "metadata": {
+                "description": "Your source public IP address. Added to the inbound DefaultNSG on eth0 (MGMT)"
+            }
         },
-        "virtualNetworkName": {
-            "value": "fwVNET-rg4"
-        },
-        "virtualNetworkExistingRGName": {
-            "value": "blackstone-rg4"
-        },
-        "virtualNetworkAddressPrefix": {
-            "value": "10.2.0.0/16"
-        },
-        "vnetNewOrExisting": {
-            "value": "new"
-        },
-        "subnet0Name": {
-            "value": "Mgmt"
-        },
-        "subnet1Name": {
-            "value": "Untrust"
-        },
-        "subnet2Name": {
-            "value": "Trust"
-        },
-        "subnet0Prefix": {
-            "value": "10.2.0.0/24"
-        },
-        "subnet1Prefix": {
-            "value": "10.2.1.0/24"
-        },
-        "subnet2Prefix": {
-            "value": "10.2.2.0/24"
-        },
-        "subnet0StartAddress": {
-            "value": "10.2.0.4"
-        },
-        "subnet1StartAddress": {
-            "value": "10.2.1.4"
-        },
-        "subnet2StartAddress": {
-            "value": "10.2.2.4"
-        }
+        "baseUrl" : {
+		"type" : "string",
+		"metadata": {
+			"artifactsBaseUrl": ""
+		},
+		"defaultValue": "https://raw.githubusercontent.com/djspears/UI1/master"
+	},
+    "virtualNetworkName": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of the virtual network that the consumer wants to use"
+      },
+      "defaultValue": "fwVNET"
+    },
+    "virtualNetworkAddressPrefix": {
+      "type": "string",
+      "defaultValue": "10.0.100.0/16",
+      "metadata": {
+        "description": "Virtual network address CIDR"
+      }
+    },
+    "subnet0Name": {
+      "type": "string",
+      "defaultValue": "Mgmt",
+      "metadata": {
+        "description": "Subnet for the Mgmt"
+      }
+    },
+    "subnet1Name": {
+      "type": "string",
+      "defaultValue": "Untrust",
+      "metadata": {
+        "description": "Subnet for the Untrust"
+      }
+    },
+    "subnet2Name": {
+      "type": "string",
+      "defaultValue": "Trust",
+      "metadata": {
+        "description": "Subnet for the Untrust"
+      }
+    },
+    "subnet0Prefix": {
+      "type": "string",
+      "defaultValue": "10.0.100.0/24",
+      "metadata": {
+        "description": "Mgmt subnet CIDR"
+      }
+    },
+    "subnet1Prefix": {
+      "type": "string",
+      "defaultValue": "10.0.101.0/24",
+      "metadata": {
+        "description": "Untrust subnet CIDR"
+      }
+    },
+    "subnet2Prefix": {
+      "type": "string",
+      "defaultValue": "10.0.102.0/24",
+      "metadata": {
+        "description": "Trust subnet CIDR"
+      }
+    },
+    "subnet0StartAddress": {
+      "type": "string",
+      "defaultValue": "10.0.100.4",
+      "metadata": {
+        "description": "Mgmt subnet start address"
+      }
+    },
+    "subnet1StartAddress": {
+      "type": "string",
+      "defaultValue": "10.0.101.4",
+      "metadata": {
+        "description": "Untrust subnet start address"
+      }
+    },
+    "subnet2StartAddress": {
+      "type": "string",
+      "defaultValue": "10.0.102.4",
+      "metadata": {
+        "description": "Untrust subnet start address"
+      }
+    },
     }
-}
+  }
+Contact GitHub API Training Shop Blog About
