@@ -1,0 +1,500 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.13",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "metadata": {
+                "description": "The region to deploy the resources into"
+            }
+        },
+        "srcIPInboundNSG": {
+            "type": "string",
+            "metadata": {
+                "description": "Your source public IP address. Added to the inbound NSG on eth0 (MGMT)"
+            },
+            "defaultValue": "0.0.0.0/0"
+        },
+        "vmName": {
+            "type": "string",
+            "metadata": {
+                "description": "Name of VM-Series VM in the Azure portal"
+            },
+            "defaultValue": "VM-Series"
+        },
+        "vmSize": {
+            "type": "string",
+            "allowedValues": [
+                "Standard_D3",
+                "Standard_D4",
+                "Standard_D3_v2",
+                "Standard_D4_v2",
+                "Standard_A4"
+            ],
+            "metadata": {
+                "description": "Azure VM size for VM-Series"
+            },
+            "defaultValue": "Standard_D3"
+        },
+        "virtualNetworkName": {
+            "type": "string",
+            "metadata": {
+                "description": "Name of the Virtual Network (VNET)"
+            },
+            "defaultValue": "fwVNET"
+        },
+        "vnetNewOrExisting": {
+            "type": "string",
+            "defaultValue": "new",
+            "allowedValues": [
+                "new",
+                "existing"
+            ],
+            "metadata": {
+                "description": "Use new or existing VNET"
+            }
+        },
+        "virtualNetworkAddressPrefix": {
+            "type": "string",
+            "defaultValue": "192.168.0.0/16",
+            "metadata": {
+                "description": "Virtual network address CIDR"
+            }
+        },
+        "virtualNetworkExistingRGName": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Name of resource group of existing VNET (if applicable)"
+            }
+        },
+        "subnet0Name": {
+            "type": "string",
+            "defaultValue": "Mgmt",
+            "metadata": {
+                "description": "Subnet for Management"
+            }
+        },
+        "subnet1Name": {
+            "type": "string",
+            "defaultValue": "Untrust",
+            "metadata": {
+                "description": "Subnet for Untrust"
+            }
+        },
+        "subnet2Name": {
+            "type": "string",
+            "defaultValue": "Trust",
+            "metadata": {
+                "description": "Subnet for Trust"
+            }
+        },
+        "subnet0Prefix": {
+            "type": "string",
+            "defaultValue": "192.168.0.0/24",
+            "metadata": {
+                "description": "Mgmt subnet CIDR"
+            }
+        },
+        "subnet1Prefix": {
+            "type": "string",
+            "defaultValue": "192.168.1.0/24",
+            "metadata": {
+                "description": "Untrust subnet CIDR"
+            }
+        },
+        "subnet2Prefix": {
+            "type": "string",
+            "defaultValue": "192.168.2.0/24",
+            "metadata": {
+                "description": "Trust subnet CIDR"
+            }
+        },
+        "subnet0StartAddress": {
+            "type": "string",
+            "defaultValue": "192.168.0.4",
+            "metadata": {
+                "description": "Mgmt subnet start address"
+            }
+        },
+        "subnet1StartAddress": {
+            "type": "string",
+            "defaultValue": "192.168.1.4",
+            "metadata": {
+                "description": "Untrust subnet start address"
+            }
+        },
+        "subnet2StartAddress": {
+            "type": "string",
+            "defaultValue": "192.168.2.4",
+            "metadata": {
+                "description": "Trust subnet start address"
+            }
+        },
+        "adminUsername": {
+            "type": "string",
+            "metadata": {
+                "description": "Username of the administrator account of VM-Series"
+            }
+        },
+        "adminPassword": {
+            "type": "securestring",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Password for the administrator account of VM-Series"
+            }
+        },
+        "baseUrl": {
+            "type": "string",
+            "metadata": {
+                "artifactsBaseUrl": "",
+                "description": "URL to acquire other VM-Series for Azure templates"
+            },
+            "defaultValue": "https://gallery.azure.com/artifact/20151001/paloaltonetworks.vmseries-ngfwbyol.1.0.2/Artifacts"
+        },
+        "PublicIPNewOrExisting": {
+            "type": "string",
+            "defaultValue": "new",
+            "allowedValues": [
+                "new",
+                "existing"
+            ],
+            "metadata": {
+                "description": "Public IP for mgmt interface is new or existing"
+            }
+        },
+        "PublicIPRGName": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Resource Group containing existing public IP"
+            }
+        },
+        "publicIPAddressName": {
+            "type": "string",
+            "metadata": {
+                "description": "Name of existing public IP resource"
+            }
+        },
+        "storageAccountName": {
+            "type": "string",
+            "metadata": {
+                "description": "Name prefix of the new storage account created to store the VM's disks"
+            }
+        },
+        "storageAccountNewOrExisting": {
+            "type": "string",
+            "defaultValue": "new",
+            "allowedValues": [
+                "new",
+                "existing"
+            ],
+            "metadata": {
+                "Description": "Storage Account is new or existing"
+            }
+        },
+        "storageAccountExistingRG": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Storage's Resource Group for existing VM."
+            }
+        },
+        "storageAccountType": {
+            "type": "string",
+            "allowedValues": [
+                "Standard_LRS",
+                "Standard_GRS",
+                "Standard_RAGRS"
+            ],
+            "metadata": {
+                "description": "Type of the storage account created"
+            },
+            "defaultValue": "Standard_LRS"
+        },
+        "authenticationType": {
+            "type": "string",
+            "metadata": {
+                "descritpion": "Type of administrator user authentication "
+            },
+            "allowedValues": [
+                "sshPublicKey",
+                "password"
+            ],
+            "defaultValue": "password"
+        },
+        "sshKey": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "SSH rsa public key file as a string."
+            }
+        }
+    },
+    "variables": {
+        "imagePublisher": "paloaltonetworks",
+        "imageSku": "byol",
+        "imageOffer": "vmseries1",
+        "nsgName": "DefaultNSG",
+        "nicName": "[concat(parameters('vmName'), '-eth')]",
+        "FWPrivateIPAddressUntrust": "[parameters('subnet1StartAddress')]",
+        "FWPrivateIPAddressTrust": "[parameters('subnet2StartAddress')]",
+        "vnetID": "[resourceId(parameters('virtualNetworkExistingRGName'),concat('Microsoft.Network','/','virtualNetworks'),parameters('virtualNetworkName'))]",
+        "subnet0Ref": "[concat(variables('vnetID'),'/subnets/',parameters('subnet0Name'))]",
+        "subnet1Ref": "[concat(variables('vnetID'),'/subnets/',parameters('subnet1Name'))]",
+        "subnet2Ref": "[concat(variables('vnetID'),'/subnets/',parameters('subnet2Name'))]",
+        "publicIPAddressType": "Dynamic",
+        "subnets": [
+            {
+                "name": "[parameters('subnet0Name')]",
+                "properties": {
+                    "addressPrefix": "[parameters('subnet0Prefix')]",
+                    "networkSecurityGroup": {
+                        "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('nsgName'))]"
+                    }
+                }
+            },
+            {
+                "name": "[parameters('subnet1Name')]",
+                "properties": {
+                    "addressPrefix": "[parameters('subnet1Prefix')]"
+                }
+            },
+            {
+                "name": "[parameters('subnet2Name')]",
+                "properties": {
+                    "addressPrefix": "[parameters('subnet2Prefix')]"
+                }
+            }
+        ],
+        "storageAccountSetupURL": "[concat(parameters('baseUrl'),'/storageAccount-',parameters('storageAccountNewOrExisting'),'.json')]",
+        "nsgSetupURL": "[concat(parameters('baseUrl'),'/nsg-new.json')]",
+        "SettingUpPublicIPUrl": "[concat(parameters('baseUrl'),'/publicip-',parameters('PublicIPNewOrExisting'),'.json')]",
+        "vnetSetupURL": "[concat(parameters('baseUrl'),'/vnet-', parameters('vnetNewOrExisting'),'.json')]",
+        "setupNICsURL": "[concat(parameters('baseUrl'),'/setupNICS-', parameters('vnetNewOrExisting'),'.json')]",
+        "vmTemplateUrl": "[concat(parameters('baseUrl'), '/virtual-machine-', parameters('authenticationType'),'.json')]"
+    },
+    "resources": [
+        {
+            "name": "SettingUpStorageAccount",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2015-01-01",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('storageAccountSetupURL')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "location": {
+                        "value": "[parameters('location')]"
+                    },
+                    "storageAccountType": {
+                        "value": "[parameters('storageAccountType')]"
+                    },
+                    "storageAccountName": {
+                        "value": "[parameters('storageAccountName')]"
+                    },
+                    "storageAccountExistingRG": {
+                        "value": "[parameters('storageAccountExistingRG')]"
+                    }
+                }
+            }
+        },
+        {
+            "name": "SettingUpPublicIPs",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2015-01-01",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('SettingUpPublicIPUrl')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "location": {
+                        "value": "[parameters('location')]"
+                    },
+                    "publicIPAddressName": {
+                        "value": "[parameters('publicIPAddressName')]"
+                    },
+                    "publicIPAddressType": {
+                        "value": "[variables('publicIPAddressType')]"
+                    },
+                    "publicIpRGName": {
+                        "value": "[parameters('PublicIPRGName')]"
+                    }
+                }
+            }
+        },
+        {
+            "name": "[variables('nsgName')]",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2015-01-01",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('nsgSetupURL')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "location": {
+                        "value": "[parameters('location')]"
+                    },
+                    "nsgName": {
+                        "value": "[variables('nsgName')]"
+                    },
+                    "srcIPInboundNSG": {
+                        "value": "[parameters('srcIPInboundNSG')]"
+                    },
+                    "virtualNetworkAddressPrefix": {
+                        "value": "[parameters('virtualNetworkAddressPrefix')]"
+                    }
+                }
+            }
+        },
+        {
+            "name": "SettingUpVirtualNetwork",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2015-01-01",
+            "dependsOn": [
+                "[concat('Microsoft.Resources/deployments/', variables('nsgName'))]"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('vnetSetupURL')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "location": {
+                        "value": "[parameters('location')]"
+                    },
+                    "nsgName": {
+                        "value": "[variables('nsgName')]"
+                    },
+                    "virtualNetworkName": {
+                        "value": "[parameters('virtualNetworkName')]"
+                    },
+                    "virtualNetworkAddressPrefix": {
+                        "value": "[parameters('virtualNetworkAddressPrefix')]"
+                    },
+                    "subnets": {
+                        "value": "[variables('subnets')]"
+                    },
+                    "virtualNetworkExistingRGName": {
+                        "value": "[parameters('virtualNetworkExistingRGName')]"
+                    }
+                }
+            }
+        },
+        {
+            "name": "SetupNetworkInterfaces",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2015-01-01",
+            "dependsOn": [
+                "Microsoft.Resources/deployments/SettingUpVirtualNetwork",
+                "Microsoft.Resources/deployments/SettingUpVirtualNetwork"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('setupNICsURL')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "location": {
+                        "value": "[parameters('location')]"
+                    },
+                    "nicName": {
+                        "value": "[variables('nicName')]"
+                    },
+                    "subnet0Name": {
+                        "value": "[parameters('subnet0Name')]"
+                    },
+                    "subnet0StartAddress": {
+                        "value": "[parameters('subnet0StartAddress')]"
+                    },
+                    "subnet1Name": {
+                        "value": "[parameters('subnet1Name')]"
+                    },
+                    "subnet1StartAddress": {
+                        "value": "[parameters('subnet1StartAddress')]"
+                    },
+                    "subnet2Name": {
+                        "value": "[parameters('subnet2Name')]"
+                    },
+                    "subnet2StartAddress": {
+                        "value": "[parameters('subnet2StartAddress')]"
+                    },
+                    "virtualNetworkName": {
+                        "value": "[parameters('virtualNetworkName')]"
+                    },
+                    "virtualNetworkExistingRGName": {
+                        "value": "[parameters('virtualNetworkExistingRGName')]"
+                    },
+                    "publicIPAddressName": {
+                        "value": "[parameters('publicIPAddressName')]"
+                    },
+                    "PublicIPRGName": {
+                        "value": "[parameters('PublicIPRGName')]"
+                    }
+                }
+            }
+        },
+        {
+            "name": "PAN-VM",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2015-01-01",
+            "dependsOn": [
+                "Microsoft.Resources/deployments/SettingUpStorageAccount",
+                "Microsoft.Resources/deployments/SettingUpPublicIPs",
+                "[concat('Microsoft.Resources/deployments/', variables('nsgName'))]",
+                "Microsoft.Resources/deployments/SettingUpVirtualNetwork",
+                "Microsoft.Resources/deployments/SetupNetworkInterfaces"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('vmTemplateUrl')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "location": {
+                        "value": "[parameters('location')]"
+                    },
+                    "vmName": {
+                        "value": "[parameters('vmName')]"
+                    },
+                    "imageSku": {
+                        "value": "[variables('imageSku')]"
+                    },
+                    "imageOffer": {
+                        "value": "[variables('imageOffer')]"
+                    },
+                    "imagePublisher": {
+                        "value": "[variables('imagePublisher')]"
+                    },
+                    "nicName": {
+                        "value": "[variables('nicName')]"
+                    },
+                    "vmSize": {
+                        "value": "[parameters('vmSize')]"
+                    },
+                    "adminUsername": {
+                        "value": "[parameters('adminUsername')]"
+                    },
+                    "adminPassword": {
+                        "value": "[parameters('adminPassword')]"
+                    },
+                    "storageAccountName": {
+                        "value": "[parameters('storageAccountName')]"
+                    },
+                    "sshKey": {
+                        "value": "[parameters('sshKey')]"
+                    }
+                }
+            }
+        }
+    ]
+}
