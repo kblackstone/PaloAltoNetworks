@@ -188,12 +188,6 @@
                 "description": "Resource Group containing existing public IP"
             }
         },
-        "dnsNameForPublicIP": {
-            "type": "string",
-            "metadata": {
-                "description": "Globally unique DNS name to access management interface of VM-Series firewall"
-            }
-        },
         "storageAccountName": {
             "type": "string",
             "metadata": {
