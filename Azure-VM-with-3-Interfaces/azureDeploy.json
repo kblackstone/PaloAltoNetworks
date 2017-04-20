@@ -331,7 +331,7 @@
                     "publicIpRGName": {
                         "value": "[parameters('PublicIPRGName')]"
                     }
-                    "dnsNameForPublicIP": {
+                    "dnsNameForPublicIP" : {
                         "value": "[variables('dnsNameForPublicIP')]"
                     }
                 }
