@@ -4,6 +4,7 @@
     "parameters": {
         "location": {
             "type": "string",
+            "defaultValue": "East US",
             "metadata": {
                 "description": "The region to deploy the resources into"
             }
@@ -20,7 +21,6 @@
             "metadata": {
                 "description": "Name of VM-Series VM in the Azure portal"
             },
-            "defaultValue": "VM-Series"
         },
         "vmSize": {
             "type": "string",
@@ -139,9 +139,27 @@
         },
         "adminPassword": {
             "type": "securestring",
-            "defaultValue": "",
+            "defaultValue": "Pal0Alt029",
             "metadata": {
                 "description": "Password for the administrator account of VM-Series"
+            }
+        },
+        "authenticationType": {
+            "type": "string",
+            "metadata": {
+                "descritpion": "Type of authentication "
+            },
+            "allowedValues": [
+                "sshPublicKey",
+                "password"
+            ],
+            "defaultValue": "password"
+        },
+        "sshKey": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "SSH rsa public key file as a string."
             }
         },
         "baseUrl": {
@@ -174,6 +192,12 @@
             "type": "string",
             "metadata": {
                 "description": "Name of existing public IP resource"
+            }
+        },
+        "dnsNameForPublicIP": {
+            "type": "string",
+            "metadata": {
+                "description": "Globally unique DNS name to access management interface of VM-Series firewall"
             }
         },
         "storageAccountName": {
@@ -212,26 +236,9 @@
             },
             "defaultValue": "Standard_LRS"
         },
-        "authenticationType": {
-            "type": "string",
-            "metadata": {
-                "descritpion": "Type of administrator user authentication "
-            },
-            "allowedValues": [
-                "sshPublicKey",
-                "password"
-            ],
-            "defaultValue": "password"
-        },
-        "sshKey": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "SSH rsa public key file as a string."
-            }
-        }
     },
     "variables": {
+        "apiVersion": "2015-06-15",
         "imagePublisher": "paloaltonetworks",
         "imageSku": "byol",
         "imageOffer": "vmseries1",
@@ -323,6 +330,9 @@
                     },
                     "publicIpRGName": {
                         "value": "[parameters('PublicIPRGName')]"
+                    }
+                    "dnsNameForPublicIP": {
+                        "value": "[variables('dnsNameForPublicIP')]"
                     }
                 }
             }
