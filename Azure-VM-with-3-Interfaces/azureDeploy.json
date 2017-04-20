@@ -188,12 +188,6 @@
                 "description": "Resource Group containing existing public IP"
             }
         },
-        "publicIPAddressName": {
-            "type": "string",
-            "metadata": {
-                "description": "Name of existing public IP resource"
-            }
-        },
         "dnsNameForPublicIP": {
             "type": "string",
             "metadata": {
@@ -322,9 +316,6 @@
                     "location": {
                         "value": "[parameters('location')]"
                     },
-                    "publicIPAddressName": {
-                        "value": "[parameters('publicIPAddressName')]"
-                    },
                     "publicIPAddressType": {
                         "value": "[variables('publicIPAddressType')]"
                     },
@@ -443,9 +434,7 @@
                     "virtualNetworkExistingRGName": {
                         "value": "[parameters('virtualNetworkExistingRGName')]"
                     },
-                    "publicIPAddressName": {
-                        "value": "[parameters('publicIPAddressName')]"
-                    },
+                 
                     "PublicIPRGName": {
                         "value": "[parameters('PublicIPRGName')]"
                     }
