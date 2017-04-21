@@ -124,7 +124,7 @@
         "description": "EXISTING Trust subnet CIDR"
       }
     },
-    "Subnet 0 Interface Address": {
+    "subnet0StartAddress": {
       "type": "string",
       "defaultValue": "192.168.0.4",
       "metadata": {
