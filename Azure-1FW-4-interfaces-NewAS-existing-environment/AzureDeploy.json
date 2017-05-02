@@ -367,7 +367,8 @@
          "[concat('Microsoft.Network/networkInterfaces/', variables('nicName'), '0')]",
          "[concat('Microsoft.Network/networkInterfaces/', variables('nicName'), '1')]",
          "[concat('Microsoft.Network/networkInterfaces/', variables('nicName'), '2')]",
-         "[concat('Microsoft.Network/networkInterfaces/', variables('nicName'), '3')]"
+         "[concat('Microsoft.Network/networkInterfaces/', variables('nicName'), '3')]",
+         "[concat('Microsoft.Compute/availabilitySets/', variables('newfwAvSet'))]"
 
       ],
         "plan": {
