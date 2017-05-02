@@ -368,6 +368,7 @@
          "[concat('Microsoft.Network/networkInterfaces/', variables('nicName'), '1')]",
          "[concat('Microsoft.Network/networkInterfaces/', variables('nicName'), '2')]",
          "[concat('Microsoft.Network/networkInterfaces/', variables('nicName'), '3')]"
+
       ],
         "plan": {
            "name": "[parameters('imageSku')]",
@@ -375,7 +376,10 @@
            "publisher": "[variables('imagePublisher')]"
         },
         "properties": {
-            "hardwareProfile": {
+          "availabilitySet": {
+                    "id": "[resourceId('Microsoft.Compute/availabilitySets', parameters('newfwAvSet'))]"
+                },  
+          "hardwareProfile": {
                 "vmSize": "[parameters('vmSize')]"
             },
             "osProfile": {
