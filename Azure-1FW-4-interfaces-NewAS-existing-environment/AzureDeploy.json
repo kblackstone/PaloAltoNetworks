@@ -27,9 +27,8 @@
     "newfwAvSet": {
     	"type": "string",
     		"metadata": {
-    			"description": Name of your new Availability Set"
+    			"description": "Name of your new Availability Set."
     		}
-    	}
     },
     "vmSize": {
        "type": "string",
