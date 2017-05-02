@@ -26,6 +26,7 @@
         
     "newfwAvSet": {
     	"type": "string",
+      "defaultValue" : "",
     		"metadata": {
     			"description": "Name of your new Availability Set."
     		}
