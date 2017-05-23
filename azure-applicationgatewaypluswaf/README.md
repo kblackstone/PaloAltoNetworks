@@ -18,4 +18,4 @@ Only projects explicitly tagged with "Supported" information are officially supp
 
 [<img src="http://azuredeploy.net/deploybutton.png"/>](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fkblackstone%2FPaloAltoNetworks%2Fblob%2Fmaster%2Fazure-applicationgatewaypluswaf%2Fazuredeploy.json)
 
-https://raw.githubusercontent.com/kblackstone/PaloAltoNetworks/master/azure-applicationgatewaypluswaf/azuredeploy.json
+https://portal.azure.com/#create/Microsoft.Template/uri/https://raw.githubusercontent.com/kblackstone/PaloAltoNetworks/master/azure-applicationgatewaypluswaf/azuredeploy.json
