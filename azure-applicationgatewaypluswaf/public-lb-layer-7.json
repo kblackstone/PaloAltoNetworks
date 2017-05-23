@@ -55,45 +55,7 @@
         "description" : "back end pool ip addresses"
       }
     },
-    "wafEnabled" : {
-      "type" : "bool",
-      "defaultValue" : "true",
-      "metadata" : {
-        "description" : "WAF Enabled"
-      }
-    },
-    "wafMode" : {
-      "type" : "string",
-      "allowedValues" : [
-        "Detection",
-        "Prevention"
-      ],
-      "defaultValue" : "Detection",
-      "metadata" : {
-        "description" : "WAF Mode"
-      }
-    },
-    "wafRuleSetType" : {
-      "type" : "string",
-      "allowedValues" : [
-        "OWASP"
-      ],
-      "defaultValue" : "OWASP",
-      "metadata" : {
-        "description" : "WAF Rule Set Type"
-      }
-    },
-    "wafRuleSetVersion" : {
-      "type" : "string",
-      "allowedValues" : [
-        "2.2.9",
-        "3.0"
-      ],
-      "defaultValue" : "3.0",
-      "metadata" : {
-        "description" : "WAF Rule Set Version"
-      }
-    },
+ 
     "subnetName" : {
       "type" : "string",
       "defaultValue" : "UntrustLB",
