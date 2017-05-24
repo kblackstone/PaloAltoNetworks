@@ -79,8 +79,28 @@
       "metadata": {
         "description": "WAF Mode"
       }
-    }
-
+    },
+    "wafRuleSetType": {
+      "type": "string",
+      "allowedValues": [
+        "OWASP"
+      ],
+      "defaultValue": "OWASP",
+      "metadata": {
+        "description": "WAF Rule Set Type"
+      }
+    },
+    "wafRuleSetVersion": {
+      "type": "string",
+      "allowedValues": [
+        "2.2.9",
+        "3.0"
+      ],
+      "defaultValue": "3.0",
+      "metadata": {
+        "description": "WAF Rule Set Version"
+      }
+    },
   },
   "variables": {
     "applicationGatewayName": "[parameters('lbName')]",
