@@ -31,7 +31,7 @@
       ],
       "defaultValue": "WAF_Medium",
       "metadata": {
-        "description": "Sku Name"
+        "description": "Application Gateway size"
       }
     },
     "capacity": {
@@ -61,7 +61,26 @@
       "metadata": {
         "description": "App Gateway subnet Name"
       }
+    },
+    "wafEnabled": {
+      "type": "bool",
+      "defaultValue": "true",
+      "metadata": {
+        "description": "WAF Enabled"
+      }
+    },
+    "wafMode": {
+      "type": "string",
+      "allowedvalues": [
+        "Detection",
+        "Prevention"
+      ],
+      "defaultValue": "Detection",
+      "metadata": {
+        "description": "WAF Mode"
+      }
     }
+
   },
   "variables": {
     "applicationGatewayName": "[parameters('lbName')]",
