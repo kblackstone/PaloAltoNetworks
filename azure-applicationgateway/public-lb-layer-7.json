@@ -62,6 +62,24 @@
       "metadata" : {
         "description" : "App Gateway subnet Name"
       }
+    },
+    "applicationGatewaySize": {
+      "value": "WAF_Medium"
+    },
+    "capacity": {
+      "value": 2
+    },
+    "wafEnabled": {
+      "value": true
+    },
+    "wafMode": {
+      "value": "Detection"
+    },
+    "wafRuleSetType": {
+      "value": "OWASP"
+    },
+    "wafRuleSetVersion": {
+      "value": "3.0"
     }
   },
   "variables" : {
