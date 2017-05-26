@@ -308,7 +308,7 @@
     "rgname" : "[resourceGroup().name]",
     "LoadBalancerType" : "layer-7",
     "firewallVmCount" : 2,
-    "baseUrl" : "https://raw.githubusercontent.com/kblackstone/PaloAltoNetworks/azure-applicationgateway",
+    "baseUrl" : "https://raw.githubusercontent.com/kblackstone/PaloAltoNetworks/master/azure-applicationgateway",
     "nsgURL" : "[concat(variables('baseUrl'),'/nsg-new.json')]",
     "vnetURL" : "[concat(variables('baseUrl'),'/vnet-', parameters('virtualNetworkNewOrExisting'),'.json')]",
     "publicLBURL" : "[concat(variables('baseUrl'),'/public-lb-', variables('LoadBalancerType'), '.json')]",
