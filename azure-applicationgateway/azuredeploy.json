@@ -540,7 +540,20 @@
           },
           "backendIPAddresses": {
                "value": "[reference('SetupVMSeries').outputs.UntrustPrivateIPAddresses.value]"
-          }
+          },
+          "applicationGatewaySize": {
+               "value": "[parameters('applicationGatewaySize')]"
+          },
+          "capacity": {
+              "value": "[parameters('capacity')]"
+          }          
+        },
+        "webApplicationFirewallConfiguration": {
+          "enabled": "[parameters('wafEnabled')]",
+          "firewallMode": "[parameters('wafMode')]",
+          "ruleSetType": "[parameters('wafRuleSetType')]",
+          "ruleSetVersion": "[parameters('wafRuleSetVersion')]",
+          "disabledRuleGroups": []
         }
        }
      },
@@ -592,14 +605,7 @@
           "baseUrl": {
                "value": "[variables('baseUrl')]"
           }
-        },
-        "webApplicationFirewallConfiguration": {
-          "enabled": "[parameters('wafEnabled')]",
-          "firewallMode": "[parameters('wafMode')]",
-          "ruleSetType": "[parameters('wafRuleSetType')]",
-          "ruleSetVersion": "[parameters('wafRuleSetVersion')]",
-          "disabledRuleGroups": []
-        }
+        }       
        }
      }
   ],
