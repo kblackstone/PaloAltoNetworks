@@ -546,14 +546,19 @@
           },
           "capacity": {
               "value": "[parameters('capacity')]"
+          },
+          "wafEnabled": {
+              "value": true
+          },
+          "wafMode": {
+              "value": "Detection"
+          },
+          "wafRuleSetType": {
+              "value": "OWASP"
+          },
+          "wafRuleSetVersion": {
+              "value": "3.0"
           }          
-        },
-        "webApplicationFirewallConfiguration": {
-          "enabled": "[parameters('wafEnabled')]",
-          "firewallMode": "[parameters('wafMode')]",
-          "ruleSetType": "[parameters('wafRuleSetType')]",
-          "ruleSetVersion": "[parameters('wafRuleSetVersion')]",
-          "disabledRuleGroups": []
         }
        }
      },
