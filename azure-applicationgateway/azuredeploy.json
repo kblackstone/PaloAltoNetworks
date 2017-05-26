@@ -110,6 +110,20 @@
         "description": "CIDR for App Gateway"
       }
     },
+    "applicationGatewaySize": {
+      "type": "string",
+      "allowedValues": [
+        "WAF_Medium",
+        "WAF_Large"
+      ],
+      "defaultValue": "WAF_Medium",
+      "metadata": {
+        "description": "application gateway size"
+      }
+    }
+
+
+
     "internalLoadBalancerName": {
       "type": "string",
       "defaultValue": "myPrivateLB",
