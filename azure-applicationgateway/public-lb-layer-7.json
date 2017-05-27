@@ -80,21 +80,39 @@
     },
     "wafEnabled": {
       "type": "bool",
-      "value": true
+      "defaultValue": true,
+      "metadata": {
+        "description": "WAF Enabled"
+      }
     },
     "wafMode": {
       "type": "string",
-      "value": "Detection"
+      "allowedValues": [
+        "Detection",
+        "Prevention"
+      ]
     },
     "wafRuleSetType": {
       "type": "string",
-      "value": "OWASP"
+      "allowedValues": [
+        "OWASP"
+      ],
+      "defaultValue": "OWASP",
+      "metadata": {
+        "description": "WAF Rule Set Type"
+      }
     },
     "wafRuleSetVersion": {
-      "type": "string",
-      "value": "3.0"
-    }
-  },
+      "type" : "string",
+      "allowedValues": [
+        "2.2.9",
+        "3.0"
+      ],
+      "defaultValue": "3.0",
+      "metadata": {
+        "description": "WAF Rule Set Version"
+      }
+    },
   "variables" : {
     "applicationGatewayName" : "[parameters('lbName')]",
     "vnetID" : "[resourceId('Microsoft.Network/virtualNetworks',parameters('vnetName'))]",
