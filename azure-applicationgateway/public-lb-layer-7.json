@@ -68,11 +68,11 @@
       "value": "WAF_Medium"
     },
     "capacity": {
-      "type": "string",
-      "value": 2
+      "type": "int",
+      "value": "2"
     },
     "wafEnabled": {
-      "type": "string",
+      "type": "bool",
       "value": true
     },
     "wafMode": {
