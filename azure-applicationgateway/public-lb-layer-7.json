@@ -64,21 +64,27 @@
       }
     },
     "applicationGatewaySize": {
+      "type": "string",
       "value": "WAF_Medium"
     },
     "capacity": {
+      "type": "string",
       "value": 2
     },
     "wafEnabled": {
+      "type": "string",
       "value": true
     },
     "wafMode": {
+      "type": "string",
       "value": "Detection"
     },
     "wafRuleSetType": {
+      "type": "string",
       "value": "OWASP"
     },
     "wafRuleSetVersion": {
+      "type": "string",
       "value": "3.0"
     }
   },
@@ -191,14 +197,7 @@
               }
             }
           }
-        ],
-        "webApplicationFirewallConfiguration" : {
-          "enabled" : "[parameters('wafEnabled')]",
-          "firewallMode" : "[parameters('wafMode')]",
-          "ruleSetType" : "[parameters('wafRuleSetType')]",
-          "ruleSetVersion" : "[parameters('wafRuleSetVersion')]",
-          "disabledRuleGroups" : []
-        }
+        ]
       }
     }
   ]
