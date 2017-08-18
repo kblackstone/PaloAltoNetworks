@@ -10,3 +10,4 @@ sudo tar xzf pan-python*.tar.gz
 wget https://pypi.python.org/packages/da/63/ebb7c707ecea80454384983c9c0eaf718667a7e9f72bc453efe00ffa3536/pandevice-0.5.0.tar.gz
 sudo tar xzf pandevice*.tar.gz
 sudo apt install python-xmltodict -y
+udo apt-get install python-pip -y
