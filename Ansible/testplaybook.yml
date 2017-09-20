@@ -1,0 +1,112 @@
+- name: Add some security rules to the firewall
+  hosts: localhost
+  connection: local
+  gather_facts: False
+
+  roles:
+    - role: PaloAltoNetworks.paloaltonetworks
+
+  tasks:
+  - name: Grab the credentials from ansible-vault
+    include_vars: 'firewall-secrets.yml'
+    no_log: 'yes'
+
+  - name: checking if device ready
+    panos_check:
+      ip_address: '{{ ip_address }}'
+      username: '{{ username }}'
+      password: '{{ password }}'
+
+  - name: Enable DHCP client on ethernet1/1 in zone untrust
+    panos_interface:
+      ip_address: '{{ ip_address }}'
+      username: '{{ username }}'
+      password: '{{ password }}'
+      if_name: 'ethernet1/1'
+      zone_name: 'untrust'
+      create_default_route: 'yes'
+
+  - name: Enable DHCP client on ethernet1/2 in zone trust
+    panos_interface:
+      ip_address: '{{ ip_address }}'
+      username: '{{ username }}'
+      password: '{{ password }}'
+      if_name: 'ethernet1/2'
+      zone_name: 'trust'
+      create_default_route: 'yes'
+
+  - name: Add test rule 1 to the firewall
+    panos_security_rule:
+      ip_address: '{{ ip_address }}'
+      username: '{{ username }}'
+      password: '{{ password }}'
+      operation: 'add'
+      rule_name: 'Ansible test 1'
+      description: 'An Ansible test rule'
+      source_zone: 'trust'
+      destination_zone: 'untrust'
+      source_ip: '1.2.3.4'
+      source_user: 'any'
+      destination_ip: 'any'
+      category: 'any'
+      application: 'any'
+      service: 'application-default'
+      hip_profiles: 'any'
+      action: 'allow'
+
+  - name: Add test rule 2 to the firewall
+    panos_security_rule:
+      ip_address: '{{ ip_address }}'
+      username: '{{ username }}'
+      password: '{{ password }}'
+      operation: 'add'
+      rule_name: 'Ansible test 2'
+      description: 'Another Ansible test rule'
+      source_zone: ['trust']
+      source_ip: ['1.2.3.4']
+      source_user: ['any']
+      hip_profiles: ['any']
+      destination_zone: ['untrust']
+      destination_ip: ['any']
+      category: ['any']
+      application: ['any']
+      service: ['application-default']
+      action: 'allow'
+
+  - name: Add test rule 3 to the firewall
+    panos_security_rule:
+      ip_address: '{{ ip_address }}'
+      username: '{{ username }}'
+      password: '{{ password }}'
+      operation: 'add'
+      rule_name: 'Ansible test 3'
+      description: 'Yet another Ansible test rule'
+      source_zone: ['trust']
+      source_ip: ['10.0.0.0/8']
+      source_user: ['any']
+      hip_profiles: ['any']
+      destination_zone: ['untrust']
+      destination_ip: ['any']
+      category: ['any']
+      application: ['any']
+      service: ['application-default']
+      action: 'allow'
+
+  - name: Add test rule 4 to the firewall
+    panos_security_rule:
+      ip_address: '{{ ip_address }}'
+      username: '{{ username }}'
+      password: '{{ password }}'
+      operation: 'add'
+      rule_name: 'Ansible test 4'
+      description: 'Yet another Ansible test rule'
+      source_zone: ['trust']
+      source_ip: ['10.1.0.0/8']
+      source_user: ['any']
+      hip_profiles: ['any']
+      destination_zone: ['untrust']
+      destination_ip: ['any']
+      category: ['any']
+      application: ['any']
+      service: ['application-default']
+      action: 'allow'
