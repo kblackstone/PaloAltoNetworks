@@ -17,4 +17,4 @@ yum -y install python-pip
 /usr/bin/pip2 install xmltodict
 pip install --upgrade pip
 export PYTHONHTTPSVERIFY=0
-wget https://raw.githubusercontent.com/kblackstone/PaloAltoNetworks/master/Ansible/testplaybook.yml
+curl https://raw.githubusercontent.com/kblackstone/PaloAltoNetworks/master/Ansible/testplaybook.yml > testplaybook.yml
