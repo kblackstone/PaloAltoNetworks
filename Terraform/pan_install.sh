@@ -17,3 +17,4 @@ sudo /usr/bin/pip2 install pandevice
 sudo /usr/bin/pip2 install xmltodict
 sudo pip install --upgrade pip
 export PYTHONHTTPSVERIFY=0
+curl https://raw.githubusercontent.com/kblackstone/PaloAltoNetworks/master/Ansible/testplaybook.yml
