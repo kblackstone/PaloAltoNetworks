@@ -501,10 +501,7 @@
             <disable-telnet>yes</disable-telnet>
             <disable-http>yes</disable-http>
           </service>
-          <ip-address>172.22.0.4</ip-address>
           <hostname>pa-vm</hostname>
-          <netmask>255.255.255.0</netmask>
-          <default-gateway>172.22.0.1</default-gateway>
           <dns-setting>
             <servers>
               <primary>168.63.129.16</primary>
