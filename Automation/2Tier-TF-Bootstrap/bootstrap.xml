@@ -534,10 +534,6 @@
                   <accept-dhcp-domain>no</accept-dhcp-domain>
                 </dhcp-client>
               </type>
-              <ip-address>172.22.0.4</ip-address>
-              <netmask>255.255.255.0</netmask>
-              <default-gateway>172.22.0.1</default-gateway>
-              <dns-primary>168.63.129.16</dns-primary>
               <username>fwadmin</username>
               <hostname>pa-vm</hostname>
             </initcfg>
