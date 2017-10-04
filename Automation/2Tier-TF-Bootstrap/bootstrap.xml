@@ -583,8 +583,7 @@
                     <member>any</member>
                   </destination>
                   <application>
-                    <member>web-browsing</member>
-                    <member>ssl</member>
+                    <member>any</member>
                   </application>
                   <service>
                     <member>application-default</member>
