@@ -2,5 +2,5 @@ until $(curl --output /dev/null --silent --head --fail https://www.google.com); 
     printf '.'
     sleep 10
 done
-apt-get update -y
-apt-get install -y apache2
+sudo apt-get update -y
+sudo apt-get install -y apache2
