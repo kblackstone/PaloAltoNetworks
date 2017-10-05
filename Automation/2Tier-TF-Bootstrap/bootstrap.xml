@@ -719,32 +719,6 @@
                     </dynamic-ip-and-port>
                   </source-translation>
                 </entry>
-                <entry name="Inbound NAT">
-                  <source-translation>
-                    <dynamic-ip-and-port>
-                      <interface-address>
-                        <interface>ethernet1/2</interface>
-                      </interface-address>
-                    </dynamic-ip-and-port>
-                  </source-translation>
-                  <to>
-                    <member>untrust</member>
-                  </to>
-                  <from>
-                    <member>untrust</member>
-                  </from>
-                  <source>
-                    <member>any</member>
-                  </source>
-                  <destination>
-                    <member>172.22.1.5</member>
-                  </destination>
-                  <destination-translation>
-                    <translated-address>172.22.4.4</translated-address>
-                  </destination-translation>
-                  <service>service-http</service>
-                  <to-interface>any</to-interface>
-                </entry>
               </rules>
             </nat>
           </rulebase>
