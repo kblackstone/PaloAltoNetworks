@@ -4,7 +4,7 @@
 
 This template was created to support the deployment of a 3 interface Palo Alto Networks firewall into an existing Microsoft Azure environment that has the following items already deployed:
 
-                    -Load Balancer - If being used
+                    -Load Balancer - If being used (not required)
                     -Availability Set for the Firewall
                     -VNET - with subnets
                     -Storage Account for the firewall VHD
