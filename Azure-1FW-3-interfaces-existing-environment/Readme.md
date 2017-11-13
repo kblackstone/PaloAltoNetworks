@@ -12,7 +12,7 @@ This template was created to support the deployment of a 3 interface Palo Alto N
             
 
 FEATURES:
-- The firewall deploys with 4 interfaces.  1 MGMT and 2 data plane into an existing environment.
+- The firewall deploys with 3 interfaces.  1 MGMT and 2 data plane into an existing environment.
 - It is possible to choose the version of software the firewall is running. 7.1 or 8.0 (Latest)
 - The deployment SKU can also be choosen during deployment.  BYOL, Bundle1 or Bundle2 are the available options.
 - Static IP addresses assignment is used for all the firewall interfaces.
