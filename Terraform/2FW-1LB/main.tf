@@ -69,7 +69,8 @@ resource "azurerm_storage_account" "demo" {
 	name				= "${lower(random_id.storage_account.hex)}"
 	resource_group_name	= "${azurerm_resource_group.demo.name}"
 	location			= "${azurerm_resource_group.demo.location}"
-	account_type		= "Standard_LRS"
+	account_replication_type = "LRS"
+    	account_tier = "Standard"
 }
 
 # Create the storage account container
