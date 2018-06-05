@@ -254,4 +254,7 @@ resource "azurerm_virtual_machine" "demo" {
 		admin_username	= "${var.azurerm_vm_admin_username}"
 		admin_password	= "${var.azurerm_vm_admin_password}"
 	}
+	os_profile_linux_config {
+    disable_password_authentication = false
+  }
 }
